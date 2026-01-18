@@ -1,0 +1,74 @@
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-main">
+            <div class="footer-logo">
+                <div class="footer-brand">
+                    <h3>switchpdf.io</h3>
+                    <p>Professional PDF Tools - Free, secure PDF tools that work in your browser</p>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Tools</h4>
+                    <a href="../pages/pdf-to-images.html">PDF to Images</a>
+                    <a href="../pages/image-to-pdf.html">Images to PDF</a>
+                    <a href="../pages/pdf-merger.html">PDF Merger</a>
+                    <a href="../pages/pdf-splitter.html">PDF Splitter</a>
+                    <a href="../pages/pdf-compressor.html">PDF Compressor</a>
+                    <a href="../pages/pdf-rotator.html">PDF Rotator</a>
+                    <a href="../pages/pdf-watermark.html">PDF Watermark</a>
+                    <a href="../pages/pdf-password-remover.html">PDF Password Remover</a>
+                    <a href="../pages/pdf-text-extractor.html">PDF Text Extractor</a>
+                    <a href="../pages/pdf-page-remover.html">PDF Page Remover</a>
+                    <a href="../pages/pdf-metadata-editor.html">PDF Metadata Editor</a>
+                    <a href="../pages/pdf-unlock.html">PDF Unlock</a>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="../pages/privacy.html">Privacy Policy</a>
+                    <a href="../pages/terms.html">Terms of Service</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="../pages/about.html">About Us</a>
+                    <a href="../pages/contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-tech">
+                <p>Built with <i class="fas fa-heart" style="color: #f72585;"></i> using HTML, CSS & JavaScript</p>
+                <p>Compatible with Vercel, GitHub Pages & Netlify</p>
+            </div>
+            
+            <div class="footer-actions">
+                <button class="footer-btn" id="resetApp">
+                    <i class="fas fa-redo"></i> Reset Application
+                </button>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2026 SwitchPDF.io - Professional PDF Tools</p>
+                <p class="disclaimer">Uses pdf.js for PDF processing and JSZip for ZIP creation. All processing happens locally in your browser.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Reset app functionality
+    document.getElementById('resetApp')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (typeof resetApp === 'function') {
+            resetApp();
+        } else if (window.location.pathname.includes('pdf-to-images')) {
+            window.location.href = 'pdf-to-images.html';
+        } else if (window.location.pathname.includes('image-to-pdf')) {
+            window.location.href = 'image-to-pdf.html';
+        } else {
+            window.location.reload();
+        }
+    });
+</script>

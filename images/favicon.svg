@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .favicon-text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-weight: 900;
+        font-size: 14px;
+        fill: #1f2937;
+      }
+      .favicon-accent {
+        fill: #dc2626;
+      }
+    </style>
+  </defs>
+
+  <!-- Favicon Text -->
+  <text x="2" y="22" class="favicon-text">
+    s<text class="favicon-accent">p</text>
+  </text>
+</svg>

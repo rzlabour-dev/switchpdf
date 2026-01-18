@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Unlock | Smart Export</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation will be loaded here -->
+    <div id="navigation-container"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h1>PDF Unlock</h1>
+            </div>
+            <p class="tagline">Remove restrictions from PDF files. Unlock printing, copying, editing, and other permissions.</p>
+        </header>
+
+        <main>
+            <div class="app-card">
+                <div class="card-header">
+                    <h2>Upload & Unlock PDF</h2>
+                    <p>Drag and drop or click to select your restricted PDF file</p>
+                </div>
+                
+                <div class="card-body">
+                    <div class="upload-area" id="dropArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <p class="upload-text">Drag & Drop your PDF file here</p>
+                        <p class="upload-subtext">or click to browse files</p>
+                        <button class="btn" id="browseBtn">Browse PDF Files</button>
+                        <input type="file" id="fileInput" class="file-input" accept=".pdf">
+                    </div>
+
+                    <div id="unlockOptions" style="display: none;">
+                        <div id="fileInfo" class="file-info-display">
+                            <p><strong>Status:</strong> <span id="restrictionStatus">Checking...</span></p>
+                            <p><strong>Pages:</strong> <span id="pageCount">-</span></p>
+                        </div>
+
+                        <div id="permissions" class="permissions-display" style="display: none;">
+                            <h3>Current Restrictions:</h3>
+                            <div id="permissionsList" class="permissions-list"></div>
+                        </div>
+
+                        <div class="option-group">
+                            <div class="option">
+                                <label for="ownerPassword">Owner Password (if required):</label>
+                                <input type="password" id="ownerPassword" placeholder="Enter owner password" class="form-input">
+                                <small style="color: var(--gray); display: block; margin-top: 5px;">
+                                    Only needed if the PDF has owner-level restrictions
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" id="unlockBtn">Unlock PDF</button>
+                    </div>
+
+                    <div id="progressArea" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">Unlocking PDF...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <!-- Load components -->
+    <script>
+        // Load navigation
+        fetch('../components/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navigation-container').innerHTML = data;
+            });
+        
+        // Load footer
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+    </script>
+    
+    <!-- Main JavaScript -->
+    <script src="../js/pdf-unlock.js" defer></script>
+</body>
+</html>

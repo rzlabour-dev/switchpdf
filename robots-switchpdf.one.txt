@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block access to sensitive directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+
+# Allow crawling of all PDF tools
+Allow: /pages/
+
+# Sitemap
+Sitemap: https://switchpdf.one/sitemap.xml
