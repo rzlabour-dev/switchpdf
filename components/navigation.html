@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="nav-left">
         <a href="../index.html" class="nav-brand">
-            <span class="nav-text">switchpdf.io</span>
+            <span class="nav-text">SwitchPDF.io</span>
         </a>
     </div>
 
@@ -9,6 +9,49 @@
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="../index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle">
+                    <i class="fas fa-tools"></i> Tools <i class="fas fa-chevron-down"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="../pages/pdf-to-images.html" class="dropdown-item">
+                        <i class="fas fa-file-pdf"></i> PDF to Images
+                    </a>
+                    <a href="../pages/image-to-pdf.html" class="dropdown-item">
+                        <i class="fas fa-file-image"></i> Images to PDF
+                    </a>
+                    <a href="../pages/pdf-merger.html" class="dropdown-item">
+                        <i class="fas fa-file-pdf"></i> PDF Merger
+                    </a>
+                    <a href="../pages/pdf-splitter.html" class="dropdown-item">
+                        <i class="fas fa-file-pdf"></i> PDF Splitter
+                    </a>
+                    <a href="../pages/pdf-compressor.html" class="dropdown-item">
+                        <i class="fas fa-compress"></i> PDF Compressor
+                    </a>
+                    <a href="../pages/pdf-rotator.html" class="dropdown-item">
+                        <i class="fas fa-undo"></i> PDF Rotator
+                    </a>
+                    <a href="../pages/pdf-watermark.html" class="dropdown-item">
+                        <i class="fas fa-stamp"></i> PDF Watermark
+                    </a>
+                    <a href="../pages/pdf-password-remover.html" class="dropdown-item">
+                        <i class="fas fa-unlock"></i> PDF Password Remover
+                    </a>
+                    <a href="../pages/pdf-text-extractor.html" class="dropdown-item">
+                        <i class="fas fa-file-alt"></i> PDF Text Extractor
+                    </a>
+                    <a href="../pages/pdf-page-remover.html" class="dropdown-item">
+                        <i class="fas fa-minus-circle"></i> PDF Page Remover
+                    </a>
+                    <a href="../pages/pdf-metadata-editor.html" class="dropdown-item">
+                        <i class="fas fa-edit"></i> PDF Metadata Editor
+                    </a>
+                    <a href="../pages/pdf-unlock.html" class="dropdown-item">
+                        <i class="fas fa-key"></i> PDF Unlock
+                    </a>
+                </div>
             </li>
             <li class="nav-item">
                 <a href="../pages/about.html" class="nav-link">About</a>
@@ -26,35 +69,50 @@
     </div>
 </nav>
 
-<script>
-    // Simple dropdown toggle
-    function toggleDropdown(event) {
-        event.preventDefault();
-        const dropdown = event.target.closest('.dropdown').querySelector('.dropdown-menu');
-        const isOpen = dropdown.classList.contains('open');
+<!-- Tools Bookmark Section (Main 5 Tools Only) -->
+<div class="tools-bookmark">
+  <a href="../pages/pdf-to-images.html" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF to Images</a>
+  <a href="../pages/image-to-pdf.html" class="tool-bookmark-item"><i class="fas fa-file-image"></i> Images to PDF</a>
+  <a href="../pages/pdf-merger.html" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF Merger</a>
+  <a href="../pages/pdf-splitter.html" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF Splitter</a>
+  <a href="../pages/pdf-compressor.html" class="tool-bookmark-item"><i class="fas fa-compress"></i> PDF Compressor</a>
+</div>
 
-        // Close all dropdowns first
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.classList.remove('open');
+<script>
+    // Dropdown toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize dropdown toggles
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const dropdown = this.closest('.dropdown');
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                const isOpen = dropdownMenu.classList.contains('open');
+
+                // Close all dropdowns first
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+
+                // Toggle this dropdown
+                if (!isOpen) {
+                    dropdownMenu.classList.add('open');
+                }
+            });
         });
 
-        // Toggle this dropdown
-        if (!isOpen) {
-            dropdown.classList.add('open');
-        }
-    }
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+            }
+        });
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('.dropdown')) {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('open');
-            });
-        }
-    });
-
-    // Initialize theme on load
-    document.addEventListener('DOMContentLoaded', function() {
         // Set active link
         setActiveLink();
     });
