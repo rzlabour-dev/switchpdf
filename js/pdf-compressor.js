@@ -83,15 +83,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             const fileBuffer = await selectedFile.arrayBuffer();
-            const pdfDoc = await PDFLib.PDFDocument.load(fileBuffer);
+            let pdfDoc = await PDFLib.PDFDocument.load(fileBuffer);
             const pageCount = pdfDoc.getPageCount();
 
             progressText.textContent = 'Analyzing content...';
             progressFill.style.width = '20%';
 
-            const compressionLevel = document.getElementById('compressionLevel').value;
-            const imageQuality = parseInt(document.getElementById('imageQuality').value === 'high' ? 0.9 :
-                                        document.getElementById('imageQuality').value === 'medium' ? 0.75 : 0.6);
+            let compressionLevel = document.getElementById('compressionLevel').value;
+            let imageQuality = document.getElementById('imageQuality').value === 'high' ? 0.9 :
+                document.getElementById('imageQuality').value === 'medium' ? 0.75 : 0.6;
+
+            // Get custom target size if provided
+            const targetSizeInput = document.getElementById('targetSize');
+            const targetSizeUnit = document.getElementById('targetSizeUnit');
+            let targetBytes = null;
+            if (targetSizeInput && targetSizeInput.value) {
+                let val = parseFloat(targetSizeInput.value);
+                if (!isNaN(val) && val > 0) {
+                    targetBytes = targetSizeUnit.value === 'MB' ? val * 1024 * 1024 : val * 1024;
+                }
+            }
 
             // Process each page
             for (let i = 0; i < pageCount; i++) {
@@ -114,12 +125,40 @@ document.addEventListener('DOMContentLoaded', function() {
             progressText.textContent = 'Finalizing compression...';
             progressFill.style.width = '90%';
 
-            // Save with compression options
-            const compressedBytes = await pdfDoc.save({
+            let compressedBytes = await pdfDoc.save({
                 useObjectStreams: compressionLevel !== 'low',
                 addDefaultPage: false,
                 objectsPerTick: compressionLevel === 'high' ? 50 : 100
             });
+
+            // If target size is set, try to adjust quality/compression to reach it
+            if (targetBytes) {
+                let attempts = 0;
+                let minQuality = 0.3;
+                let maxAttempts = 8;
+                while (compressedBytes.length > targetBytes && imageQuality > minQuality && attempts < maxAttempts) {
+                    imageQuality -= 0.1;
+                    if (imageQuality < minQuality) imageQuality = minQuality;
+                    // Re-load and re-compress
+                    pdfDoc = await PDFLib.PDFDocument.load(fileBuffer);
+                    for (let i = 0; i < pageCount; i++) {
+                        const page = pdfDoc.getPage(i);
+                        const { width, height } = page.getSize();
+                        if (compressionLevel === 'high') {
+                            if (width > 1000 || height > 1000) {
+                                const scale = Math.min(1000 / width, 1000 / height, 1);
+                                page.scaleContent(scale, scale);
+                            }
+                        }
+                    }
+                    compressedBytes = await pdfDoc.save({
+                        useObjectStreams: compressionLevel !== 'low',
+                        addDefaultPage: false,
+                        objectsPerTick: compressionLevel === 'high' ? 50 : 100
+                    });
+                    attempts++;
+                }
+            }
 
             // Create download link
             const blob = new Blob([compressedBytes], { type: 'application/pdf' });

@@ -6,7 +6,7 @@
     <title>PDF Compressor | Smart Export</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../images/switchpdf-logo.svg">
 </head>
 <body>
     <div id="navigation-container" aria-label="Main navigation"></div>
@@ -55,7 +55,6 @@
                                     <option value="high">High (Smaller Size)</option>
                                 </select>
                             </div>
-                            
                             <div class="option">
                                 <label for="imageQuality">Image Quality:</label>
                                 <select id="imageQuality">
@@ -64,8 +63,16 @@
                                     <option value="low">Low (60%)</option>
                                 </select>
                             </div>
+                            <div class="option">
+                                <label for="targetSize">Target Size:</label>
+                                <input type="number" id="targetSize" min="1" placeholder="e.g. 500">
+                                <select id="targetSizeUnit">
+                                    <option value="KB">KB</option>
+                                    <option value="MB">MB</option>
+                                </select>
+                                <span style="font-size:0.9em;color:#888;">(Optional: Enter desired output size)</span>
+                            </div>
                         </div>
-                        
                         <button class="btn" id="compressBtn">Compress PDF</button>
                     </div>
 
