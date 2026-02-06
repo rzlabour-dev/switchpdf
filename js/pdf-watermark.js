@@ -1,4 +1,4 @@
-// PDF Watermark functionality
+﻿// PDF Watermark functionality
 let selectedFile = null;
 let watermarkImageData = null;
 
@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const watermarkOptions = document.getElementById('watermarkOptions');
     const pageCountSpan = document.getElementById('pageCount');
     const watermarkType = document.getElementById('watermarkType');
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -298,3 +300,4 @@ document.addEventListener('DOMContentLoaded', function() {
         return ranges;
     }
 });
+

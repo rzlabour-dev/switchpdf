@@ -1,4 +1,4 @@
-// PDF Text Extractor functionality
+﻿// PDF Text Extractor functionality
 let selectedFile = null;
 let extractedText = '';
 
@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const extractOptions = document.getElementById('extractOptions');
     const pageCountSpan = document.getElementById('pageCount');
     const pageSelection = document.getElementById('pageSelection');
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -241,3 +243,4 @@ document.addEventListener('DOMContentLoaded', function() {
         return ranges;
     }
 });
+

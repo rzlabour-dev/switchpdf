@@ -1,7 +1,8 @@
-// DOM Elements
+﻿// DOM Elements
 const dropArea = document.getElementById('dropArea');
 const fileInput = document.getElementById('fileInput');
 const browseBtn = document.getElementById('browseBtn');
+const uploadCta = document.getElementById('uploadCta');
 const convertBtn = document.getElementById('convertBtn');
 const clearBtn = document.getElementById('clearBtn');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -44,6 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Browse button clicked');
             fileInput.click();
         });
+    }
+
+    if (uploadCta) {
+        uploadCta.addEventListener('click', () => fileInput.click());
     }
     
     if (fileInput) {
@@ -688,3 +693,5 @@ function initApp() {
     console.log('Initializing Image to PDF application');
     resetApp();
 }
+
+

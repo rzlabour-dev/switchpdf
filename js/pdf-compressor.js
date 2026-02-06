@@ -1,4 +1,4 @@
-// PDF Compressor functionality
+﻿// PDF Compressor functionality
 let selectedFile = null;
 let originalSize = 0;
 
@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const compressOptions = document.getElementById('compressOptions');
     const originalSizeSpan = document.getElementById('originalSize');
     const pageCountSpan = document.getElementById('pageCount');
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -206,3 +208,4 @@ document.addEventListener('DOMContentLoaded', function() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 });
+

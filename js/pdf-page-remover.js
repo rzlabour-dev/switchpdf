@@ -1,4 +1,4 @@
-// PDF Page Remover functionality
+﻿// PDF Page Remover functionality
 let selectedFile = null;
 let totalPages = 0;
 let pagesToKeep = [];
@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const removeOptions = document.getElementById('removeOptions');
     const pageCountSpan = document.getElementById('pageCount');
     const pagesToRemoveInput = document.getElementById('pagesToRemove');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -201,3 +203,4 @@ document.addEventListener('DOMContentLoaded', function() {
         return pages.sort((a, b) => a - b);
     }
 });
+

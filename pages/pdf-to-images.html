@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4606840502684829"
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to Image Converter – Free Online Tool | SwitchPDF.io</title>
+    <title>PDF to Image Converter - Free Online Tool | SwitchPDF.io</title>
     <meta name="description" content="Convert PDF to JPG or PNG images online for free with SwitchPDF.io. Fast, secure, no signup required. Turn every PDF page into a high-quality image instantly.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://switchpdf.io/pdf-to-image">
@@ -76,7 +76,14 @@
             </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'><rect width='200' height='80' fill='%230066cc'/><rect x='20' y='20' width='40' height='40' rx='8' fill='none' stroke='white' stroke-width='3'/><rect x='80' y='20' width='40' height='40' rx='8' fill='white'/><circle cx='100' cy='40' r='8' fill='%230066cc'/><text x='140' y='52' font-family='Arial, sans-serif' font-weight='bold' font-size='16' fill='white'>switchpdf.io</text></svg>'>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/images/favicon-128.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/images/favicon-256.png">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-256.png">
     
     <!-- Vercel Web Analytics -->
     <script>
@@ -84,19 +91,17 @@
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body>
+<body class="tool-page pdf-to-images">
     <!-- Navigation will be loaded here -->
     <div id="navigation-container" aria-label="Main navigation"></div>
     
     <div class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-file-pdf"></i>
-                </div>
+                <img class="logo-image" src="/images/switchpdf-logo.svg" alt="SwitchPDF.io">
                 <h1>Free PDF to Image Converter Online</h1>
             </div>
-            <p>Convert your PDF files into high-quality JPG or PNG images instantly with SwitchPDF.io’s free PDF to Image tool.</p>
+            <p>Convert your PDF files into high-quality JPG or PNG images instantly with SwitchPDF.io's free PDF to Image tool.</p>
             <div class="tool-switch">
                 <span class="switch-label">PDF to Images</span>
                 <label class="switch">
@@ -105,7 +110,7 @@
                 </label>
                 <span class="switch-label">Images to PDF</span>
             </div>
-            <button class="btn btn-success" style="margin-top: 16px; font-size: 1.1rem;">Upload PDF & Convert to Image</button>
+            <button class="btn btn-success" id="uploadCta" style="margin-top: 16px; font-size: 1.1rem;">Upload PDF & Convert to Image</button>
         </header>
 
         <main>
@@ -115,26 +120,28 @@
                     <p>Each page of your PDF becomes a separate image file. Perfect for social media, websites, ads, and editing.</p>
                 </div>
                 <div class="card-body">
-                                            <section>
-                                                    <h2>Why Convert PDF to Images?</h2>
-                                                    <ul>
-                                                        <li>Upload pages to Instagram, Facebook, WhatsApp</li>
-                                                        <li>Edit in Photoshop, GIMP, Canva</li>
-                                                        <li>Use images in ads and presentations</li>
-                                                    </ul>
-                                            </section>
-                                            <section>
-                                                    <h2>How to Convert PDF to Image with SwitchPDF.io</h2>
-                                                    <ol>
-                                                        <li>Upload your PDF</li>
-                                                        <li>We convert each page to an image</li>
-                                                        <li>Download all images in a ZIP file</li>
-                                                    </ol>
-                                            </section>
-                                <section>
-                                    <h2>Secure & Private Conversion</h2>
-                                    <p>Your files are processed securely and never stored permanently.</p>
-                                </section>
+                    <div class="info-grid">
+                        <section class="info-card">
+                            <h2>Why Convert PDF to Images?</h2>
+                            <ul>
+                                <li>Upload pages to Instagram, Facebook, WhatsApp</li>
+                                <li>Edit in Photoshop, GIMP, Canva</li>
+                                <li>Use images in ads and presentations</li>
+                            </ul>
+                        </section>
+                        <section class="info-card">
+                            <h2>How to Convert PDF to Image with SwitchPDF.io</h2>
+                            <ol>
+                                <li>Upload your PDF</li>
+                                <li>We convert each page to an image</li>
+                                <li>Download all images in a ZIP file</li>
+                            </ol>
+                        </section>
+                        <section class="info-card">
+                            <h2>Secure & Private Conversion</h2>
+                            <p>Your files are processed securely and never stored permanently.</p>
+                        </section>
+                    </div>
                     <div class="upload-area" id="dropArea">
                         <div class="upload-icon">
                             <i class="fas fa-cloud-upload-alt"></i>
@@ -188,7 +195,7 @@
                     <div class="loading hidden" id="loading">
                         <div class="spinner"></div>
                         <p>Processing PDF... This may take a moment</p>
-                        <p><small id="loadingStatus">Loading PDF document...</small></p>
+                        <p><small id="loadingStatus" role="status" aria-live="polite">Loading PDF document...</small></p>
                     </div>
 
                     <div class="stats hidden" id="stats">
@@ -266,7 +273,7 @@
                 </div>
             </div>
             <section class="faq-section">
-                <h2>FAQ – PDF to Image Converter</h2>
+                <h2>FAQ - PDF to Image Converter</h2>
                 <div class="faq-item">
                     <h3>How do I convert a PDF to image using SwitchPDF.io?</h3>
                     <p>Upload your PDF file on SwitchPDF.io and the tool will convert each page into a separate JPG or PNG image which you can download in a ZIP file.</p>
@@ -327,3 +334,4 @@
     <script src="../js/script.js" defer></script>
 </body>
 </html>
+

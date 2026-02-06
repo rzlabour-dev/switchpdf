@@ -1,4 +1,4 @@
-// PDF Merger functionality
+﻿// PDF Merger functionality
 let selectedFiles = [];
 let sortableList;
 
@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const fileList = document.getElementById('fileList');
     const fileItems = document.getElementById('fileItems');
     const mergeBtn = document.getElementById('mergeBtn');
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -198,3 +200,4 @@ document.addEventListener('DOMContentLoaded', function() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 });
+

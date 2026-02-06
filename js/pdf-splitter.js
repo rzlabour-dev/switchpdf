@@ -1,10 +1,11 @@
-// PDF Splitter functionality
+﻿// PDF Splitter functionality
 let selectedFile = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const splitOptions = document.getElementById('splitOptions');
     const splitMethod = document.getElementById('splitMethod');
     const rangeOptions = document.getElementById('rangeOptions');
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -256,3 +258,4 @@ document.addEventListener('DOMContentLoaded', function() {
         return ranges;
     }
 });
+

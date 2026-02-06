@@ -1,10 +1,11 @@
-// PDF Unlock functionality
+﻿// PDF Unlock functionality
 let selectedFile = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const unlockOptions = document.getElementById('unlockOptions');
     const restrictionStatus = document.getElementById('restrictionStatus');
     const pageCountSpan = document.getElementById('pageCount');
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -197,3 +199,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+

@@ -1,10 +1,11 @@
-// PDF Password Remover functionality
+﻿// PDF Password Remover functionality
 let selectedFile = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const passwordPrompt = document.getElementById('passwordPrompt');
     const passwordInput = document.getElementById('password');
     const unlockBtn = document.getElementById('unlockBtn');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -133,3 +135,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+

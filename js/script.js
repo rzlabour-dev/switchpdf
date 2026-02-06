@@ -2,6 +2,7 @@
 const dropArea = document.getElementById('dropArea');
 const fileInput = document.getElementById('fileInput');
 const browseBtn = document.getElementById('browseBtn');
+const uploadCta = document.getElementById('uploadCta');
 const convertBtn = document.getElementById('convertBtn');
 const clearBtn = document.getElementById('clearBtn');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -28,6 +29,7 @@ let pdfFiles = [];
 let pdfNames = [];
 let convertedImagesByPdf = [];
 let totalPages = 0;
+let pageDragCounter = 0;
 
 // PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
@@ -36,6 +38,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners only if elements exist
     if (browseBtn) browseBtn.addEventListener('click', () => fileInput.click());
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     if (fileInput) fileInput.addEventListener('change', handleFileSelect);
     if (convertBtn) convertBtn.addEventListener('click', convertPdfToImages);
     if (clearBtn) clearBtn.addEventListener('click', resetApp);
@@ -44,6 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set up drag and drop
     if (dropArea) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            document.addEventListener(eventName, preventDefaults, false);
+        });
+
+        document.addEventListener('dragenter', handlePageDragEnter, false);
+        document.addEventListener('dragover', handlePageDragOver, false);
+        document.addEventListener('dragleave', handlePageDragLeave, false);
+        document.addEventListener('drop', handlePageDrop, false);
+
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dropArea.addEventListener(eventName, preventDefaults, false);
         });
@@ -68,12 +80,49 @@ function preventDefaults(e) {
     e.stopPropagation();
 }
 
+function setDropActive(isActive) {
+    if (!dropArea) return;
+    dropArea.classList.toggle('dragover', isActive);
+    document.body.classList.toggle('page-drop-active', isActive);
+}
+
 function highlight() {
-    dropArea.classList.add('dragover');
+    setDropActive(true);
 }
 
 function unhighlight() {
-    dropArea.classList.remove('dragover');
+    setDropActive(false);
+}
+
+function hasFiles(e) {
+    return e.dataTransfer && Array.from(e.dataTransfer.types).includes('Files');
+}
+
+function handlePageDragEnter(e) {
+    if (!hasFiles(e)) return;
+    pageDragCounter += 1;
+    setDropActive(true);
+}
+
+function handlePageDragLeave(e) {
+    if (!hasFiles(e)) return;
+    pageDragCounter -= 1;
+    if (pageDragCounter <= 0) {
+        pageDragCounter = 0;
+        setDropActive(false);
+    }
+}
+
+function handlePageDragOver(e) {
+    if (!hasFiles(e)) return;
+    e.dataTransfer.dropEffect = 'copy';
+}
+
+function handlePageDrop(e) {
+    if (!hasFiles(e)) return;
+    pageDragCounter = 0;
+    setDropActive(false);
+    handleDrop(e);
 }
 
 // Handle file drop
@@ -116,7 +165,7 @@ function handleFiles(files) {
             <i class="fas fa-file-pdf"></i>
         </div>
         <p class="upload-text">${files.length > 1 ? files.length + ' files selected' : files[0].name}</p>
-        <p class="upload-subtext">${files.length > 1 ? 'Multiple PDFs ready to convert' : fileSizeMB + ' MB • Ready to convert'}</p>
+        <p class="upload-subtext">${files.length > 1 ? 'Multiple PDFs ready to convert' : fileSizeMB + ' MB - Ready to convert'}</p>
         <button class="btn btn-secondary" id="changeFileBtn">
             <i class="fas fa-exchange-alt"></i> Change PDF File(s)
         </button>
@@ -178,7 +227,7 @@ async function convertPdfToImages() {
                     <img src="${imageData}" alt="${pdfName} - Page ${pageNum}" class="preview-img">
                     <div class="preview-info">
                         <h4>${pdfName} - Page ${pageNum}</h4>
-                        <p>${viewport.width} × ${viewport.height} px • ${imageFormat.toUpperCase()}</p>
+                        <p>${viewport.width} x ${viewport.height} px - ${imageFormat.toUpperCase()}</p>
                         <button class="btn" style="margin-top: 10px; padding: 8px 16px; font-size: 0.9rem;" data-pdf="${pdfName}" data-page="${pageNum}" data-img-idx="${pageNum-1}" data-pdf-idx="${i}">
                             <i class="fas fa-download"></i> Download
                         </button>

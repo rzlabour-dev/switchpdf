@@ -1,10 +1,11 @@
-// PDF Metadata Editor functionality
+﻿// PDF Metadata Editor functionality
 let selectedFile = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     const dropArea = document.getElementById('dropArea');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
+    const uploadCta = document.getElementById('uploadCta');
     const metadataEditor = document.getElementById('metadataEditor');
     const updateBtn = document.getElementById('updateBtn');
     const clearBtn = document.getElementById('clearBtn');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Browse button click
     browseBtn.addEventListener('click', () => {
         fileInput.click();
+    if (uploadCta) uploadCta.addEventListener('click', () => fileInput.click());
     });
 
     // File input change
@@ -164,3 +166,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
