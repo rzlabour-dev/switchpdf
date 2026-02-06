@@ -1,12 +1,17 @@
 ﻿<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="switchpdf-gradient" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+    <linearGradient id="switchpdf-gradient" x1="0" y1="0" x2="0" y2="256" gradientUnits="userSpaceOnUse">
       <stop stop-color="#2F6BFF" />
       <stop offset="1" stop-color="#8B5CF6" />
     </linearGradient>
   </defs>
-  <rect x="64" y="46" width="76" height="164" rx="26" fill="url(#switchpdf-gradient)" />
-  <rect x="156" y="46" width="76" height="164" rx="26" fill="url(#switchpdf-gradient)" />
-  <circle cx="52" cy="128" r="12" fill="#F7F8FF" />
-  <circle cx="244" cy="128" r="12" fill="#F7F8FF" />
+  <rect x="36" y="28" width="88" height="200" rx="28" fill="url(#switchpdf-gradient)" />
+  <rect x="132" y="28" width="88" height="200" rx="28" fill="url(#switchpdf-gradient)" />
+  <circle cx="86" cy="88" r="24" fill="rgba(255,255,255,0.2)" />
+  <g transform="translate(148 86)">
+    <rect x="0" y="0" width="56" height="76" rx="6" fill="none" stroke="#FFFFFF" stroke-width="7" />
+    <path d="M40 0 L56 0 L56 16" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" />
+    <rect x="-6" y="46" width="68" height="24" rx="7" fill="#FFFFFF" />
+    <text x="28" y="64" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#6B3AA5" text-anchor="middle">PDF</text>
+  </g>
 </svg>
