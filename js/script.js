@@ -24,10 +24,9 @@ const imageQualitySelect = document.getElementById('imageQuality');
 const resolutionSelect = document.getElementById('resolution');
 
 // State variables
-let pdfDocs = [];
 let pdfFiles = [];
 let pdfNames = [];
-let convertedImages = [];
+let convertedImagesByPdf = [];
 let totalPages = 0;
 
 // PDF.js worker
@@ -135,9 +134,10 @@ async function convertPdfToImages() {
     loadingStatus.textContent = 'Loading PDF documents...';
     convertBtn.disabled = true;
     try {
-        convertedImages = [];
+        convertedImagesByPdf = [];
         previewContainer.innerHTML = '';
         let totalAllPages = 0;
+        let totalFiles = pdfFiles.length;
         for (let i = 0; i < pdfFiles.length; i++) {
             const file = pdfFiles[i];
             const pdfName = pdfNames[i];
@@ -145,11 +145,7 @@ async function convertPdfToImages() {
             const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
             const numPages = pdfDoc.numPages;
             totalAllPages += numPages;
-            // Update stats for each file
-            pageCountEl.textContent = numPages;
-            exportTypeEl.textContent = numPages === 1 ? 'Single JPG' : 'ZIP Archive';
-            statusEl.textContent = `Converting: ${file.name}`;
-            stats.classList.remove('hidden');
+            let images = [];
             for (let pageNum = 1; pageNum <= numPages; pageNum++) {
                 loadingStatus.textContent = `Converting ${file.name} - page ${pageNum} of ${numPages}...`;
                 const page = await pdfDoc.getPage(pageNum);
@@ -169,7 +165,7 @@ async function convertPdfToImages() {
                 } else {
                     imageData = canvas.toDataURL('image/jpeg', imageQuality);
                 }
-                convertedImages.push({
+                images.push({
                     data: imageData,
                     page: pageNum,
                     format: imageFormat,
@@ -183,7 +179,7 @@ async function convertPdfToImages() {
                     <div class="preview-info">
                         <h4>${pdfName} - Page ${pageNum}</h4>
                         <p>${viewport.width} × ${viewport.height} px • ${imageFormat.toUpperCase()}</p>
-                        <button class="btn" style="margin-top: 10px; padding: 8px 16px; font-size: 0.9rem;" data-pdf="${pdfName}" data-page="${pageNum}">
+                        <button class="btn" style="margin-top: 10px; padding: 8px 16px; font-size: 0.9rem;" data-pdf="${pdfName}" data-page="${pageNum}" data-img-idx="${pageNum-1}" data-pdf-idx="${i}">
                             <i class="fas fa-download"></i> Download
                         </button>
                     </div>
@@ -191,15 +187,20 @@ async function convertPdfToImages() {
                 previewContainer.appendChild(previewItem);
                 // Add event listener to individual download button
                 const downloadBtn = previewItem.querySelector('button');
-                downloadBtn.addEventListener('click', () => {
-                    downloadSingleImage(convertedImages.length - 1);
+                downloadBtn.addEventListener('click', (e) => {
+                    downloadSingleImage(i, pageNum-1);
                 });
             }
+            convertedImagesByPdf.push({ pdfName, images });
         }
+        // Update stats
+        pageCountEl.textContent = totalAllPages;
+        exportTypeEl.textContent = totalFiles > 1 ? 'Multiple ZIPs' : (convertedImagesByPdf[0].images.length === 1 ? 'Single JPG' : 'ZIP Archive');
+        statusEl.textContent = 'Conversion Complete';
+        stats.classList.remove('hidden');
         loading.classList.add('hidden');
         previewSection.classList.remove('hidden');
-        statusEl.textContent = 'Conversion Complete';
-        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download All as ZIP';
+        downloadBtn.innerHTML = totalFiles > 1 ? '<i class="fas fa-download"></i> Download All ZIPs' : (convertedImagesByPdf[0].images.length === 1 ? '<i class="fas fa-download"></i> Download JPG' : '<i class="fas fa-download"></i> Download ZIP');
     } catch (error) {
         console.error('Error converting PDFs:', error);
         loadingStatus.textContent = 'Error converting PDFs. Please try again.';
@@ -209,87 +210,81 @@ async function convertPdfToImages() {
     }
 }
 
-// Download single image
-function downloadSingleImage(index) {
-    const image = convertedImages[index];
-    const filename = `${pdfName}_page_${image.page}.${image.format}`;
-    
+// Download single image (by PDF index and image index)
+function downloadSingleImage(pdfIdx, imgIdx) {
+    const pdf = convertedImagesByPdf[pdfIdx];
+    const image = pdf.images[imgIdx];
+    const filename = `${pdf.pdfName}_page_${image.page}.${image.format}`;
     // Convert data URL to blob
     const data = image.data.split(',')[1];
     const mimeType = image.data.split(',')[0].split(':')[1].split(';')[0];
     const byteCharacters = atob(data);
     const byteNumbers = new Array(byteCharacters.length);
-    
     for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-    
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: mimeType });
-    
-    // Save file
     saveAs(blob, filename);
 }
 
 // Download all images (either as single JPG or ZIP)
 async function downloadImages() {
-    if (convertedImages.length === 0) return;
-    
+    if (!convertedImagesByPdf.length) return;
     statusEl.textContent = 'Preparing download...';
-    
-    if (convertedImages.length === 1) {
-        // Single page - download as JPG
-        downloadSingleImage(0);
-    } else {
-        // Multiple pages - create ZIP
-        loadingStatus.textContent = 'Creating ZIP archive...';
-        loading.classList.remove('hidden');
-        
-        try {
-            const zip = new JSZip();
-            
-            // Add each image to the ZIP
-            convertedImages.forEach((image, index) => {
-                // Extract image data from data URL
-                const data = image.data.split(',')[1];
-                
-                // Convert base64 to binary string
-                const binaryString = atob(data);
-                const binaryArray = new Uint8Array(binaryString.length);
-                
-                for (let i = 0; i < binaryString.length; i++) {
-                    binaryArray[i] = binaryString.charCodeAt(i);
-                }
-                
-                // Add file to ZIP
-                const filename = `${pdfName}_page_${image.page}.${image.format}`;
-                zip.file(filename, binaryArray, { binary: true });
-            });
-            
-            // Generate ZIP file
-            const zipBlob = await zip.generateAsync({ type: 'blob' });
-            
-            // Download ZIP file
-            saveAs(zipBlob, `${pdfName}_converted.zip`);
-            
-            loading.classList.add('hidden');
-            statusEl.textContent = 'Download Complete';
-            
-        } catch (error) {
-            console.error('Error creating ZIP:', error);
-            loading.classList.add('hidden');
-            statusEl.textContent = 'Error creating ZIP';
-            alert('Error creating ZIP archive: ' + error.message);
+    if (convertedImagesByPdf.length === 1) {
+        // Single PDF
+        const pdf = convertedImagesByPdf[0];
+        if (pdf.images.length === 1) {
+            // Single page - download as JPG
+            downloadSingleImage(0, 0);
+        } else {
+            // Multiple pages - create ZIP
+            await downloadPdfZip(pdf);
         }
+    } else {
+        // Multiple PDFs - create a ZIP for each
+        loadingStatus.textContent = 'Creating ZIP archives...';
+        loading.classList.remove('hidden');
+        try {
+            for (let i = 0; i < convertedImagesByPdf.length; i++) {
+                await downloadPdfZip(convertedImagesByPdf[i], true);
+            }
+            loading.classList.add('hidden');
+            statusEl.textContent = 'All ZIPs Downloaded';
+        } catch (error) {
+            console.error('Error creating ZIPs:', error);
+            loading.classList.add('hidden');
+            statusEl.textContent = 'Error creating ZIPs';
+            alert('Error creating ZIP archives: ' + error.message);
+        }
+    }
+}
+
+// Helper to download a ZIP for a single PDF
+async function downloadPdfZip(pdf, silent) {
+    const zip = new JSZip();
+    pdf.images.forEach((image) => {
+        const data = image.data.split(',')[1];
+        const binaryString = atob(data);
+        const binaryArray = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            binaryArray[i] = binaryString.charCodeAt(i);
+        }
+        const filename = `${pdf.pdfName}_page_${image.page}.${image.format}`;
+        zip.file(filename, binaryArray, { binary: true });
+    });
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    saveAs(zipBlob, `${pdf.pdfName}_converted.zip`);
+    if (!silent) {
+        loading.classList.add('hidden');
+        statusEl.textContent = 'Download Complete';
     }
 }
 
 // Reset the application
 function resetApp() {
-    pdfDoc = null;
-    pdfFile = null;
-    pdfName = '';
-    convertedImages = [];
+    convertedImagesByPdf = [];
     totalPages = 0;
     
     // Reset UI
