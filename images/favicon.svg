@@ -1,20 +1,12 @@
-<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+﻿<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <style>
-      .favicon-text {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        font-weight: 900;
-        font-size: 14px;
-        fill: #1f2937;
-      }
-      .favicon-accent {
-        fill: #dc2626;
-      }
-    </style>
+    <linearGradient id="switchpdf-gradient" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F6BFF" />
+      <stop offset="1" stop-color="#8B5CF6" />
+    </linearGradient>
   </defs>
-
-  <!-- Favicon Text -->
-  <text x="2" y="22" class="favicon-text">
-    s<text class="favicon-accent">p</text>
-  </text>
+  <rect x="64" y="46" width="76" height="164" rx="26" fill="url(#switchpdf-gradient)" />
+  <rect x="156" y="46" width="76" height="164" rx="26" fill="url(#switchpdf-gradient)" />
+  <circle cx="52" cy="128" r="12" fill="#F7F8FF" />
+  <circle cx="244" cy="128" r="12" fill="#F7F8FF" />
 </svg>
