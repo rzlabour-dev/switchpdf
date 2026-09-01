@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="nav-left">
-        <a href="../index.html" class="nav-brand">
+        <a href="/" class="nav-brand">
             <span class="nav-text">SwitchPDF.io</span>
         </a>
     </div>
@@ -8,59 +8,59 @@
     <div class="nav-center">
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="../index.html" class="nav-link">Home</a>
+                <a href="/" class="nav-link">Home</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="fas fa-tools"></i> Tools <i class="fas fa-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="../pages/pdf-to-images.html" class="dropdown-item">
+                    <a href="/pdf-to-images" class="dropdown-item">
                         <i class="fas fa-file-pdf"></i> PDF to Images
                     </a>
-                    <a href="../pages/image-to-pdf.html" class="dropdown-item">
+                    <a href="/image-to-pdf" class="dropdown-item">
                         <i class="fas fa-file-image"></i> Images to PDF
                     </a>
-                    <a href="../pages/pdf-merger.html" class="dropdown-item">
+                    <a href="/pdf-merger" class="dropdown-item">
                         <i class="fas fa-file-pdf"></i> PDF Merger
                     </a>
-                    <a href="../pages/pdf-splitter.html" class="dropdown-item">
+                    <a href="/pdf-splitter" class="dropdown-item">
                         <i class="fas fa-file-pdf"></i> PDF Splitter
                     </a>
-                    <a href="../pages/pdf-compressor.html" class="dropdown-item">
+                    <a href="/pdf-compressor" class="dropdown-item">
                         <i class="fas fa-compress"></i> PDF Compressor
                     </a>
-                    <a href="../pages/pdf-rotator.html" class="dropdown-item">
+                    <a href="/pdf-rotator" class="dropdown-item">
                         <i class="fas fa-undo"></i> PDF Rotator
                     </a>
-                    <a href="../pages/pdf-watermark.html" class="dropdown-item">
+                    <a href="/pdf-watermark" class="dropdown-item">
                         <i class="fas fa-stamp"></i> PDF Watermark
                     </a>
-                    <a href="../pages/pdf-password-remover.html" class="dropdown-item">
+                    <a href="/pdf-password-remover" class="dropdown-item">
                         <i class="fas fa-unlock"></i> PDF Password Remover
                     </a>
-                    <a href="../pages/pdf-text-extractor.html" class="dropdown-item">
+                    <a href="/pdf-text-extractor" class="dropdown-item">
                         <i class="fas fa-file-alt"></i> PDF Text Extractor
                     </a>
-                    <a href="../pages/pdf-page-remover.html" class="dropdown-item">
+                    <a href="/pdf-page-remover" class="dropdown-item">
                         <i class="fas fa-minus-circle"></i> PDF Page Remover
                     </a>
-                    <a href="../pages/pdf-metadata-editor.html" class="dropdown-item">
+                    <a href="/pdf-metadata-editor" class="dropdown-item">
                         <i class="fas fa-edit"></i> PDF Metadata Editor
                     </a>
-                    <a href="../pages/pdf-unlock.html" class="dropdown-item">
+                    <a href="/pdf-unlock" class="dropdown-item">
                         <i class="fas fa-key"></i> PDF Unlock
                     </a>
                 </div>
             </li>
             <li class="nav-item">
-                <a href="../pages/about.html" class="nav-link">About</a>
+                <a href="/about" class="nav-link">About</a>
             </li>
             <li class="nav-item">
-                <a href="../pages/privacy.html" class="nav-link">Privacy</a>
+                <a href="/privacy" class="nav-link">Privacy</a>
             </li>
             <li class="nav-item">
-                <a href="../pages/contact.html" class="nav-link">Contact</a>
+                <a href="/contact" class="nav-link">Contact</a>
             </li>
         </ul>
     </div>
@@ -71,11 +71,11 @@
 
 <!-- Tools Bookmark Section (Main 5 Tools Only) -->
 <div class="tools-bookmark">
-  <a href="../pages/pdf-to-images.html" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF to Images</a>
-  <a href="../pages/image-to-pdf.html" class="tool-bookmark-item"><i class="fas fa-file-image"></i> Images to PDF</a>
-  <a href="../pages/pdf-merger.html" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF Merger</a>
-  <a href="../pages/pdf-splitter.html" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF Splitter</a>
-  <a href="../pages/pdf-compressor.html" class="tool-bookmark-item"><i class="fas fa-compress"></i> PDF Compressor</a>
+  <a href="/pdf-to-images" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF to Images</a>
+  <a href="/image-to-pdf" class="tool-bookmark-item"><i class="fas fa-file-image"></i> Images to PDF</a>
+  <a href="/pdf-merger" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF Merger</a>
+  <a href="/pdf-splitter" class="tool-bookmark-item"><i class="fas fa-file-pdf"></i> PDF Splitter</a>
+  <a href="/pdf-compressor" class="tool-bookmark-item"><i class="fas fa-compress"></i> PDF Compressor</a>
 </div>
 
 <script>
@@ -120,12 +120,12 @@
     // Set active navbar links
     function setActiveLink() {
         const currentPath = window.location.pathname;
-        const currentPage = currentPath.split('/').pop() || 'index.html';
+        const currentPage = currentPath === '/' ? '/' : currentPath.replace(/\/$/, '');
 
         // Set active navbar links
         document.querySelectorAll('.nav-link').forEach(link => {
             const linkHref = link.getAttribute('href');
-            if (linkHref && linkHref.includes(currentPage)) {
+            if (linkHref && (linkHref === currentPage || (currentPage === '/' && linkHref === '/'))) {
                 link.classList.add('active');
             }
         });

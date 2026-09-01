@@ -62,3 +62,7 @@ This project supports deployment across multiple domains with automatic domain d
 See `DEPLOYMENT-GUIDE.md` for detailed multi-domain setup instructions.
 
 ## 🏗️ Project Structure
+
+## SEO canonical domain
+
+`https://switchpdf.io` is the only canonical/indexable site. Secondary SwitchPDF domains should permanently redirect to `switchpdf.io` and should not publish duplicate site copies or separate sitemaps.
