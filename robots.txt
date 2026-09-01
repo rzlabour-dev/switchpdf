@@ -5,4 +5,4 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /.git/
 
-Sitemap: https://switchpdf.io/sitemap.xml
+Sitemap: https://www.switchpdf.io/sitemap.xml

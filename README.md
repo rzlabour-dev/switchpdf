@@ -65,4 +65,4 @@ See `DEPLOYMENT-GUIDE.md` for detailed multi-domain setup instructions.
 
 ## SEO canonical domain
 
-`https://switchpdf.io` is the only canonical/indexable site. Secondary SwitchPDF domains should permanently redirect to `switchpdf.io` and should not publish duplicate site copies or separate sitemaps.
+`https://www.switchpdf.io` is the only canonical/indexable site. Secondary SwitchPDF domains should permanently redirect to `switchpdf.io` and should not publish duplicate site copies or separate sitemaps.

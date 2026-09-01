@@ -5,10 +5,10 @@
       "has": [
         {
           "type": "host",
-          "value": "www.switchpdf.io"
+          "value": "switchpdf.io"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -19,7 +19,7 @@
           "value": "switchpdf.info"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -30,7 +30,7 @@
           "value": "www.switchpdf.info"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -41,7 +41,7 @@
           "value": "switchpdf.one"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -52,7 +52,7 @@
           "value": "www.switchpdf.one"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -63,7 +63,7 @@
           "value": "switchpdf.online"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -74,7 +74,7 @@
           "value": "www.switchpdf.online"
         }
       ],
-      "destination": "https://switchpdf.io/:path*",
+      "destination": "https://www.switchpdf.io/:path*",
       "permanent": true
     },
     {
@@ -100,6 +100,66 @@
     {
       "source": "/pages/terms.html",
       "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-to-images.html",
+      "destination": "/pdf-to-images",
+      "permanent": true
+    },
+    {
+      "source": "/pages/image-to-pdf.html",
+      "destination": "/image-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-merger.html",
+      "destination": "/pdf-merger",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-splitter.html",
+      "destination": "/pdf-splitter",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-compressor.html",
+      "destination": "/pdf-compressor",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-rotator.html",
+      "destination": "/pdf-rotator",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-watermark.html",
+      "destination": "/pdf-watermark",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-password-remover.html",
+      "destination": "/pdf-password-remover",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-text-extractor.html",
+      "destination": "/pdf-text-extractor",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-page-remover.html",
+      "destination": "/pdf-page-remover",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-metadata-editor.html",
+      "destination": "/pdf-metadata-editor",
+      "permanent": true
+    },
+    {
+      "source": "/pages/pdf-unlock.html",
+      "destination": "/pdf-unlock",
       "permanent": true
     }
   ],
