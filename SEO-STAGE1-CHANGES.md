@@ -1,12 +1,12 @@
 # SwitchPDF SEO Stage 1 changes
 
-Primary canonical site: https://switchpdf.io
+Primary canonical site: https://www.switchpdf.io
 
 ## Changed
 - Added unique HTML title, meta description, robots and canonical tags to every indexable HTML page.
 - Removed the homepage JavaScript domain-based SEO override (`js/domain-config.js`). HTML metadata is now authoritative.
 - Changed internal navigation/footer/tool-card links to clean canonical URLs.
-- Added permanent redirects for `www.switchpdf.io` -> `switchpdf.io`.
+- Added permanent redirects for `switchpdf.io` -> `www.switchpdf.io`.
 - Added permanent redirects for secondary SwitchPDF domains -> `switchpdf.io`.
 - Added permanent redirects from legacy `/pages/*.html` URLs to clean URLs.
 - Kept Vercel rewrites from clean URLs to the existing `/pages/*.html` implementation files.
